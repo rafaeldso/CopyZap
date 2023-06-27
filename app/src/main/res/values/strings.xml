@@ -43,5 +43,11 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <string name="cz_paste">Paste</string>
+    <string name="cz_paste">Colar</string>
+    <string name="cz_paste_here">Cole seu texto aqui</string>
+    <string name="cz_clear">Limpar</string>
+    <string name="cz_result">"Resultado: "</string>
+    <string name="cz_format">Formatar</string>
+    <string name="cz_back">Voltar</string>
+    <string name="cz_copy">Copiar</string>
 </resources>
