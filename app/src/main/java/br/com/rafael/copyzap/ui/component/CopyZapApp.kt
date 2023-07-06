@@ -1,6 +1,10 @@
 package br.com.rafael.copyzap.ui.component
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,25 +16,26 @@ import br.com.rafael.copyzap.viewModel.ClipboardViewModel
 @Composable
 fun CopyZapApp(clipboardViewModel: ClipboardViewModel) {
     val navController = rememberNavController()
-    CopyZapNavHost(
-        clipboardViewModel = clipboardViewModel,
-        navController = navController
-    )
+    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+        CopyZapNavHost(
+            clipboardViewModel = clipboardViewModel,
+            navController = navController
+        )
+    }
 }
 
 @Composable
 fun CopyZapNavHost(navController: NavHostController, clipboardViewModel: ClipboardViewModel) {
     NavHost(navController = navController, startDestination = "home") {
-        composable("home"){
-            HomeScreen(clipboardViewModel = clipboardViewModel, onNavigateToResult = { formatText ->
-                navController.navigate("result/${formatText}")
+        composable("home") {
+            HomeScreen(clipboardViewModel = clipboardViewModel, onNavigateToResult = {
+                navController.navigate("result")
             })
         }
         composable(
-            "result/{formatText}",
-            arguments = listOf(navArgument("formatText") { type = NavType.StringType })
+            "result"
         ) { backStackEntry ->
-            ResultScreen(formatText = backStackEntry.arguments?.getString("formatText"), clipboardViewModel = clipboardViewModel, onBackToStack = {
+            ResultScreen(clipboardViewModel = clipboardViewModel, onBackToStack = {
                 navController.popBackStack()
             })
         }

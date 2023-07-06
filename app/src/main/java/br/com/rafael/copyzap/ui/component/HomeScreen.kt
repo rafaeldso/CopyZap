@@ -1,5 +1,6 @@
 package br.com.rafael.copyzap.ui.component
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -21,28 +22,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import br.com.rafael.copyzap.R
+import br.com.rafael.copyzap.ui.theme.TEAL_GREEN_LIGHT
 import br.com.rafael.copyzap.viewModel.ClipboardViewModel
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     clipboardViewModel: ClipboardViewModel,
-    onNavigateToResult: (String) -> Unit = {}
+    onNavigateToResult: () -> Unit = {}
 ) {
-    //var inputvalue by remember { mutableStateOf(TextFieldValue(clipboardViewModel.clipboardText)) }
     ZapContent(
         clipboardViewModel,
         modifier = modifier.fillMaxSize(),
@@ -55,10 +52,10 @@ fun HomeScreen(
 fun ZapContent(
     clipboardViewModel: ClipboardViewModel,
     modifier: Modifier = Modifier,
-    onNavigateToResult: (String) -> Unit = {}
+    onNavigateToResult: () -> Unit = {}
 ) {
-    var clipboardManager: ClipboardManager = LocalClipboardManager.current
-    //val focusRequester = remember { FocusRequester() }
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -88,15 +85,27 @@ fun ZapContent(
                     onClick = { clipboardViewModel.setZapValue("") },
                     Modifier
                         .height(IntrinsicSize.Min)
-                        .padding(start = 4.dp)
+                        .padding(start = 4.dp),
+                    colors = ButtonDefaults.textButtonColors(contentColor = TEAL_GREEN_LIGHT)
                 ) {
                     Text(stringResource(R.string.cz_clear))
                 }
                 if (clipboardViewModel.clipboardText.isNotEmpty()) {
                     Button(
                         onClick = {
-                            onNavigateToResult(clipboardViewModel.formatText(clipboardViewModel.clipboardText))
+                                if (clipboardViewModel.clipboardText.isNotBlank()) {
+                                    clipboardViewModel.formatText = ""
+                                    clipboardViewModel.isError(false)
+                                    onNavigateToResult()
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.cz_error_empty),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                         },
+                        colors = ButtonDefaults.buttonColors(TEAL_GREEN_LIGHT),
                         modifier =
                         Modifier
                             .height(IntrinsicSize.Min)
@@ -113,9 +122,9 @@ fun ZapContent(
                 } else {
                     Button(
                         onClick = {
-                            //clipboardViewModel.getClipboard()
                             clipboardViewModel.setZapValue(clipboardManager.getText()?.text.orEmpty())
                         },
+                        colors = ButtonDefaults.buttonColors(TEAL_GREEN_LIGHT),
                         modifier =
                         Modifier
                             .height(IntrinsicSize.Min)
@@ -139,3 +148,10 @@ fun ZapContent(
 
 
 }
+
+/*
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen(clipboardViewModel = ClipboardViewModel(), onNavigateToResult = {})
+}*/
