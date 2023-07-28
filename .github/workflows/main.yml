@@ -18,6 +18,10 @@ jobs:
         with:
           name: lint.html
           path: app/build/reports/lint-results-debug.html
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
 
   unit-test:
     needs: [lint]
