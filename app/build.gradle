@@ -6,6 +6,7 @@ plugins {
 android {
     namespace 'br.com.rafael.copyzap'
     compileSdk 33
+    buildToolsVersion "33.0.2"
 
     defaultConfig {
         applicationId "br.com.rafael.copyzap"
