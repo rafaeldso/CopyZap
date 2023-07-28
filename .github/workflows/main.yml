@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-          distribution: 'corretto'
+          distribution: 'adopt'
           
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
