@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         MobileAds.setRequestConfiguration(
-            RequestConfiguration.Builder().setTestDeviceIds(listOf("ABCDEF012345")).build()
+            RequestConfiguration.Builder().setTestDeviceIds(listOf("81646DBAD3A9B65F23C16D3DA0CC7AE7")).build()
         )
 
         // Initialize the Google Mobile Ads SDK.

@@ -50,7 +50,7 @@
     <string name="cz_format">Formatar</string>
     <string name="cz_back">Voltar</string>
     <string name="cz_copy">Copiar</string>
-    <string name="cz_ad_id_banner">ca-app-pub-4322106949869518~5241026579</string>
+    <string name="cz_ad_id_banner">ca-app-pub-4322106949869518/5241026579</string>
     <string name="cz_ad_id_banner_test">ca-app-pub-3940256099942544/6300978111</string>
     <string name="cz_error_empty">O texto não pode ser formatado, pois está em branco.</string>
     <string name="cz_error_result">Erro ao formatar texto. Por favor, tente novamente!</string>
